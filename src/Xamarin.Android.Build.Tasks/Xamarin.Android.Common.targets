@@ -443,6 +443,10 @@ Copyright (C) 2011-2012 Xamarin. All rights reserved.
   </_PostBuildTargets>
 </PropertyGroup>
 
+<PropertyGroup >
+   <CoreCompileDependsOn>UpdateGeneratedFiles;$(CoreCompileDependsOn)</CoreCompileDependsOn>
+</PropertyGroup>
+
 <PropertyGroup Condition="'$(AndroidApplication)' != '' And $(AndroidApplication)">
   <BuildDependsOn>
     _ValidateLinkMode;
@@ -523,6 +527,10 @@ Copyright (C) 2011-2012 Xamarin. All rights reserved.
 		<Compile Remove="@(CorrectCasedItem)" Condition=" '$(AndroidResgenFile)' != '' "/>
 		<Compile Include="$(_AndroidResourceDesignerFile)" />
 	</ItemGroup>
+</Target>
+
+<Target Name="UpdateGeneratedFiles"
+		DependsOnTargets="_RemoveLegacyDesigner;UpdateAndroidResources">
 </Target>
 
 <Target Name="_ValidateAndroidPackageProperties">
