@@ -536,6 +536,7 @@ Copyright (C) 2011-2012 Xamarin. All rights reserved.
 		<Compile Remove="@(CorrectCasedItem)" Condition=" '$(AndroidResgenFile)' != '' "/>
 		<Compile Include="$(_AndroidResourceDesignerFile)" />
 	</ItemGroup>
+	<Message Importance="High" Text="$(AndroidResgenFile) is no longer required and can be safely removed." Condition=" '$(AndroidResgenFile)' != '' And Exists('$(AndroidResgenFile)') " />
 </Target>
 
 <Target Name="_ValidateAndroidPackageProperties">
