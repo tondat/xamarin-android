@@ -48,6 +48,9 @@ namespace Xamarin.Android.Tasks {
 		public ITaskItem[] Assemblies { get; set; }
 
 		[Required]
+		public bool IsDesignTimeBuild { get; set; }
+
+		[Required]
 		public string CacheFile { get; set; }
 
 		string CachePath;
@@ -271,7 +274,7 @@ namespace Xamarin.Android.Tasks {
 
 		string MakeSureLibraryIsInPlace (string destinationBase, string url, string version, string embeddedArchive, string sha1)
 		{
-			if (string.IsNullOrEmpty (url))
+			if (string.IsNullOrEmpty (url) || IsDesignTimeBuild)
 				return null;
 
 			Log.LogDebugMessage ("Making sure we have {0} downloaded and extracted {1} from it...", url, embeddedArchive);
@@ -365,6 +368,7 @@ namespace Xamarin.Android.Tasks {
 			LogDebugMessage ("  AndroidSdkDirectory: {0}", AndroidSdkDirectory);
 			LogDebugMessage ("  AndroidNdkDirectory: {0}", AndroidNdkDirectory);
 			LogDebugTaskItems ("  Assemblies: ", Assemblies);
+			LogDebugMessage ("  IsDesignTimeBuild: {0}", IsDesignTimeBuild);
 
 			if (Environment.GetEnvironmentVariable ("XA_DL_IGNORE_CERT_ERRROS") == "yesyesyes") {
 				ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
